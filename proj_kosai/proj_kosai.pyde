@@ -2,7 +2,7 @@
 img_bg = None #背景画像のグローバル宣言
 img_st = None #スタート画像のグローバル宣言
 scene = 1 #画面条件分岐用のフラグ
-i = 0 #iのグローバル宣言
+bg_count = 0 #iのグローバル宣言
 
 orbit_list = []
 
@@ -11,49 +11,63 @@ def setup():
     size(1500,1000)
     
     global sercle_lenge, object, img_bg, img_st
-    size(1500,1000)
+    # size(1500,1000)
     img_bg = loadImage("img/haikei.jpg") #背景画像をロードする
     img_st = loadImage("img/start.jpg") #スタート画像をロードする
     
-    sercle_lenge = 300 # 周る円の大きさ
-    speed = 0.05 # 円を周る時のスピード　低いほど遅い
-    object = Orbit_object(sercle_lenge, speed)
-    
-    noStroke()
-
-def draw():
-    background(0)
-    global m,n,sercle_lenge,object, i, scene
-    image(img_bg,0,i,1500,1000) #背景画像の貼り付け1枚目
-    image(img_bg,0,i-1000,1500,1000) #背景画像の貼り付け2枚目
-    i+=1 #背景画像のｙ座標の値を徐々に大きくする
-    if i>=1000: #iの値がy座標の最大値(1000)を超えたらiを0にする
-        i=0
-
     earth = Earth()
     
     orbit_Coordinate = [i for i in range(300,600,30)]
     orbit_list = [Orbit_object(orbit_Coordinate[i], random(0.005,0.01)) for i in range(9)]
+    
+    noStroke()
+
+# def draw():
+#     background(0)
+#     global m,n,sercle_lenge,object, i, scene
+#     image(img_bg,0,i,1500,1000) #背景画像の貼り付け1枚目
+#     image(img_bg,0,i-1000,1500,1000) #背景画像の貼り付け2枚目
+#     i+=1 #背景画像のｙ座標の値を徐々に大きくする
+#     if i>=1000: #iの値がy座標の最大値(1000)を超えたらiを0にする
+#         i=0
+
+    # orbit_Coordinate = [i for i in range(300,600,30)]
+    # orbit_list = [Orbit_object(orbit_Coordinate[i], random(0.005,0.01)) for i in range(9)]
     # orbit_list = [Orbit_object(orbit_Coordinate[i], random(0.005,0.01)) for i in range(1)]
 
 def draw():
     global orbit_list,earth
-    background(255)
+    
+    global m,n,sercle_lenge,object, bg_count, scene
+    global img_bg, img_st
+    
+    image(img_bg,0,bg_count,1500,1000) #背景画像の貼り付け1枚目
+    image(img_bg,0,bg_count-1000,1500,1000) #背景画像の貼り付け2枚目
+    bg_count+=1 #背景画像のｙ座標の値を徐々に大きくする
+    if bg_count>=1000: #iの値がy座標の最大値(1000)を超えたらiを0にする
+        bg_count=0
+    # background(255)
+    
+    # print(bg_count)
 
     translate(width//2,height//2)
     # print(mouseX,mouseY)
     
-    fill(127,255,212)
-    noStroke()
-    ellipse(0,0,300,300)
+    # fill(127,255,212)
+    # noStroke()
+    # ellipse(0,0,300,300)
+
     
+    # print(orbit_list)
     for i,object in enumerate(orbit_list):
         object.update()
+        # print(object)
         # つかむ判定
         object_x, object_y = object.get_position()
         earth_x, earth_y = earth.get_arm_position()
         earth_flag = earth.get_is_catch()
         
+        # print(object_x, object_y)    
         
         if earth_flag:
             if earth_x-5 < object_x < earth_x+55:
@@ -64,7 +78,6 @@ def draw():
         # print(earth_x, earth_y, earth_flag)
         # print(object_x,object_y)
 
-    
     earth.update()
     
     if keyPressed:
@@ -78,17 +91,16 @@ def draw():
     
     # object.update()
     
-    object.update()
     if scene == 1:
-        image(img_st,-width//2,-height//2,1500,900)
+        image(img_st,-width//2,-height//2,1500,1000)
         #sceneが1の時スタート画面を表示
-    # if mousePressed:
-        # print(mouseX,mouseY)
-    if mousePressed and (276<=mouseX<=1216) and (558<=mouseY<=788):
+    if mousePressed:
+        print(mouseX,mouseY)
+        if mousePressed and (276<=mouseX<=1215) and (621<=mouseY<=879):
         #startの枠の中でマウスが押されたらsceneを0にする
-        scene = 0
+            scene = 0
     
-    
+
 class Orbit_object():
     count = 0
     def __init__(self, sercle_lenge, d_speed):
@@ -121,11 +133,10 @@ class Orbit_object():
         if self.speed > 360:
             self.speed = self.d_speed
 
-        self.x = self.sercle_lenge * cos(self.speed)
-        self.y = self.sercle_lenge * sin(self.speed)
-        ellipse(self.x,self.y,30,30)
+        # self.x = self.sercle_lenge * cos(self.speed)
+        # self.y = self.sercle_lenge * sin(self.speed)
+        # ellipse(self.x,self.y,30,30)
         # print(self.x,self.y)
-        
             
         if self.sign == -1:
             self.x = self.sercle_lenge * cos(-self.speed)
@@ -140,10 +151,8 @@ class Orbit_object():
             fill(0,191,255)
         if 6<= self.orbit_num <=8:
             fill(255,250,205)
-
-            
+    
         ellipse(self.x,self.y,60,60)
-        
         
         fill(0)
         text(str(self.orbit_num),self.x,self.y)
