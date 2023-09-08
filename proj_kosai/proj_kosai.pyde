@@ -35,8 +35,9 @@ class Orbit_object():
         ellipse(self.x,self.y,30,30)
         print(self.x,self.y)
         
-# -------------------追加-------------------------        
-class Growing():
+# -------------------追加-------------------------
+# 取ったオブジェクトの数に応じて星を成長させるクラス        
+class Grow():
     def __init__(self, count_seed, count_water, count_creature, count_clock):
         self.count_seed = count_seed  # 種をとった数
         self.count_water = count_water  # 水をとった数
@@ -47,6 +48,7 @@ class Growing():
         self.lv_water = 0  # 水のレベル
         self.lv_creature = 0  # 生き物のレベル
         
+    # 取ったオブジェクトの数に対応した、オブジェクトのレベルを返すメソッド
     def judge_level(self):
         
         # 100の位: 種のレベル, 10の位: 水のレベル, 1の位: 生き物のレベル
