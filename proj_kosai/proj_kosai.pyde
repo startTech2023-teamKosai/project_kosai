@@ -22,19 +22,6 @@ def setup():
     
     noStroke()
 
-# def draw():
-#     background(0)
-#     global m,n,sercle_lenge,object, i, scene
-#     image(img_bg,0,i,1500,1000) #背景画像の貼り付け1枚目
-#     image(img_bg,0,i-1000,1500,1000) #背景画像の貼り付け2枚目
-#     i+=1 #背景画像のｙ座標の値を徐々に大きくする
-#     if i>=1000: #iの値がy座標の最大値(1000)を超えたらiを0にする
-#         i=0
-
-    # orbit_Coordinate = [i for i in range(300,600,30)]
-    # orbit_list = [Orbit_object(orbit_Coordinate[i], random(0.005,0.01)) for i in range(9)]
-    # orbit_list = [Orbit_object(orbit_Coordinate[i], random(0.005,0.01)) for i in range(1)]
-
 def draw():
     global orbit_list,earth
     
