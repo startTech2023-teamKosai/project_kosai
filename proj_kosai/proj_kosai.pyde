@@ -1,21 +1,13 @@
 orbit_list = []
 def setup():
     global orbit_list, earth
-
     size(1500,1000)
     
     earth = Earth()
     
-    
-    sercle_lenge = 500 # 周る円の大きさ
-    speed = 0.01 # 円を周る時のスピード　低いほど遅い
-    object = Orbit_object(sercle_lenge, speed)
-    
     orbit_Coordinate = [i for i in range(300,600,30)]
     orbit_list = [Orbit_object(orbit_Coordinate[i], random(0.005,0.01)) for i in range(9)]
     # orbit_list = [Orbit_object(orbit_Coordinate[i], random(0.005,0.01)) for i in range(1)]
-    
-    noStroke()
 
 def draw():
     global orbit_list,earth
@@ -38,9 +30,10 @@ def draw():
         if earth_flag:
             if earth_x-5 < object_x < earth_x+55:
                 if earth_y-5 < object_y < earth_y+55:
+                    print(object.get_number())
                     orbit_list.pop(i)
 
-        print(earth_x, earth_y, earth_flag)
+        # print(earth_x, earth_y, earth_flag)
         # print(object_x,object_y)
 
     
@@ -98,11 +91,11 @@ class Orbit_object():
             self.x = self.sercle_lenge * cos(self.speed)
             self.y = self.sercle_lenge * sin(self.speed)
         noStroke()
-        if 1<= self.orbit_num <=3:
+        if 0<= self.orbit_num <=2:
             fill(139,69,19)
-        elif 4<= self.orbit_num <=6:
+        elif 3<= self.orbit_num <=5:
             fill(0,191,255)
-        if 7<= self.orbit_num <=9:
+        if 6<= self.orbit_num <=8:
             fill(255,250,205)
 
             
@@ -117,7 +110,7 @@ class Orbit_object():
         return self.x, self.y
     
     def get_number(self):
-        return self.num
+        return self.orbit_num
 
 class Earth():
     def __init__(self):
@@ -133,10 +126,6 @@ class Earth():
         noStroke()
         ellipse(0,0,300,300)
         
-        # fill(255,0,0)
-        # rect(-500,-50,500,100)
-        
-        
         if self.is_catch_now:
             self.arm_img = self.arm_img_catch
             self.is_catch = False
@@ -147,31 +136,35 @@ class Earth():
                      self.is_catch = False
                      self.is_catch_now = False
         else:
-            self.arm_img = self.arm_img_open
-                                    
+            self.arm_img = self.arm_img_open    
+            
+        fill(255)
+        ellipse(-50,0,30,60)            
         image(self.arm_img, -self.arm_size-50, -50,self.arm_size,100)
-        
         
         fill(0)
         ellipse(0,0,10,10)
-    
+        
     # アームの動き
     def arm_update_plus(self):
         if self.is_catch_now == False:
             self.arm_size += 10
             if self.arm_size > 600:
                  self.arm_size = 600
+            fill(255)
+            ellipse(-50,0,30,60)
             image(self.arm_img, -self.arm_size-50,-50,self.arm_size,100)
     def arm_update_minus(self):
         if self.is_catch_now == False:
             self.arm_size -= 10
             if self.arm_size < 100:
                 self.arm_size = 100
+            fill(255)
+            ellipse(-50,0,30,60)
             image(self.arm_img, -self.arm_size-50,-50,self.arm_size,100)
     def catch_arm(self):
         self.is_catch_now = True
         self.is_catch = True
-    
     
     # 変数を返す    
     def get_arm_position(self):
@@ -180,18 +173,6 @@ class Earth():
     def get_is_catch(self):
         return self.is_catch
         
-    
-        
-        
-# def keyPressed():
-#     global earth
-#     if key == "a":
-#         earth.arm_update_plus()
-#     elif key == "d":
-#         earth.arm_update_minus()
-    
-#     if key == ENTER:
-#         earth.catch_arm()
     
      
     
