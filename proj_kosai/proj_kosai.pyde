@@ -11,7 +11,7 @@ def setup():
     img_st = loadImage("img/start.jpg") #スタート画像をロードする
     
     sercle_lenge = 300 # 周る円の大きさ
-    speed = 14 # 円を周る時のスピード　低いほど遅い
+    speed = 0.05 # 円を周る時のスピード　低いほど遅い
     object = Orbit_object(sercle_lenge, speed)
     
     noStroke()
