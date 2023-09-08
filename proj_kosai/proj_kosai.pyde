@@ -48,7 +48,6 @@ class Grow():
         self.lv_water = 0  # 水のレベル
         self.lv_creature = 0  # 生き物のレベル
         
-    # 取ったオブジェクトの数に対応した、オブジェクトのレベルを返すメソッド
     def judge_level(self):
         
         # 100の位: 種のレベル, 10の位: 水のレベル, 1の位: 生き物のレベル
@@ -85,7 +84,16 @@ class Grow():
         for s in range(len(look_up_table)):
             for w in range(len(look_up_table[0])):
                 for c in range(len(look_up_table[0][0])):
-                    lv_obj = look_up_table[self.count_seed][self.count_water][self.count_creature]
+                    try:
+                        lv_obj = look_up_table[self.count_seed][self.count_water][self.count_creature]
+                        
+                    except IndexError:
+                        if self.count_seed > 4:
+                            lv_obj = 500
+                        elif self.count_water > 4:
+                            lv_obj = 50
+                        elif self.count_creature > 4:
+                            lv_obj = 5
         
         # レベル判定
         self.lv_seed = lv_obj // 100 + self.count_clock
