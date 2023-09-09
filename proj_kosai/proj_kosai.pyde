@@ -167,6 +167,9 @@ def draw():
                     image(seed_end_img,-width//2,-height//2,1500,1000)
                     
                 elif result[2] >= 3:
+                    if music_call3:
+                        bg_music("music/life_end.mp3")
+                        music_call3 = False
                     image(life_end_img,-width//2,-height//2,1500,1000)
                     
                 else:
