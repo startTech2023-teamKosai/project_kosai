@@ -46,7 +46,7 @@ def setup():
     life_lv2_img = loadImage("img/life_lv2.PNG")
     life_lv3_img = loadImage("img/life_lv3.PNG")
     
-    global water_end_img, seed_end_img, life_end_img, end_faild_img
+    global water_end_img, seed_end_img, life_end_img, faild_end_img
     water_end_img = loadImage("img/end_water.png")
     seed_end_img = loadImage("img/end_seed.png")
     life_end_img = loadImage("img/end_life.png")
