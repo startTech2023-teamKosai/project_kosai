@@ -318,9 +318,9 @@ class Earth():
         self.life_lv_img = loadImage("img/None.png")
         
         # 音声について
-        self.music = Minim(this)
-        self.music_player = self.music.loadFile("music/catch.mp3")
-        self.music_player.setGain(300)
+        # self.music = Minim(this)
+        # self.music_player = self.music.loadFile("music/catch.mp3")
+        # self.music_player.setGain(300)
      
     def update(self):
         fill(127,255,212)
@@ -368,8 +368,8 @@ class Earth():
                      self.arm_size = 100
                      self.is_catch = False
                      self.is_catch_now = False
-                     self.music_player.close()
-                     self.music.stop()
+                     # self.music_player.close()
+                     # self.music.stop()
                      if remain_count <= 0:
                         global game_flag
                         game_flag = True  
