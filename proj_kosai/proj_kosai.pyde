@@ -382,16 +382,16 @@ class Earth():
         
     def set_Level(self, orbit_number):        
         if 0 <= orbit_number <= 2:
-            self.music_player = self.music.loadFile("music/catch.mp3")
-            self.music_player.play()
+            # self.music_player = self.music.loadFile("music/catch.mp3")
+            # self.music_player.play()
             self.seed_lv += 1
         elif 3 <= orbit_number <= 5:
-            self.music_player = self.music.loadFile("music/catch.mp3")
-            self.music_player.play()
+            # self.music_player = self.music.loadFile("music/catch.mp3")
+            # self.music_player.play()
             self.water_lv += 1
         elif 6 <= orbit_number <= 8:
-            self.music_player = self.music.loadFile("music/catch.mp3")
-            self.music_player.play()
+            # self.music_player = self.music.loadFile("music/catch.mp3")
+            # self.music_player.play()
             self.life_lv += 1
         
     # アームの動き
