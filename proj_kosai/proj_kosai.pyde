@@ -8,7 +8,7 @@ orbit_list = []
 remain_count = 6 # キャッチできる回数
 
 game_flag = False # ゲームフラグ
-end_rect_density = 0 # 
+end_rect_density = 0
 
 music_call1 = True # drawの中で１回だけ関数を呼ぶためのフラグ
 music_call2 = True
@@ -69,7 +69,6 @@ def setup():
     global music_call1, music_call2, music_call3
     # 音　インスタンス
     back_music = Minim(this)
-    
 
 def draw():
     global back_music,back_music_player
@@ -116,7 +115,6 @@ def draw():
     
         # 画面切り替え
         if scene == 1:
-            end_rect_density += 0.5
             image(img_st,-width//2,-height//2,1500,1000)
             #sceneが1の時スタート画面を表示
             if mousePressed:
@@ -137,16 +135,20 @@ def draw():
                     scene = 0
         
         #残り回数が０になったらゲームを終了
-        if remain_count <= 0:
-                game_flag = True    
+        # if remain_count <= 0:
+        #         game_flag = True    
 
     # リザルト処理
     if game_flag == True:
         if frameCount % 2 == 0:
             # 暗転　だんだん暗くする
-            fill(0,0,0,end_rect_density)
-            rect(-width/2, -height/2, 1500, 1000)
             end_rect_density += 0.5
+            
+            fill(0,0,0,end_rect_density)
+            rect(-width/2, -height/2, width, height)
+
+            # print(end_rect_density)
+            
             if end_rect_density > 30:
                 end_rect_density = 30
                 
@@ -154,7 +156,14 @@ def draw():
                 result = earth.get_earth_lv()
                 
                 # 結果表示
-                if result[0] >= 3:
+                
+                if result[2] >= 3:
+                    if music_call3:
+                        bg_music("music/life_end.mp3")
+                        music_call3 = False
+                    image(life_end_img,-width//2,-height//2,1500,1000)
+                    
+                elif result[0] >= 3:
                     if music_call3:
                         bg_music("music/Day_Dream_Down.mp3")
                         music_call3 = False
@@ -166,19 +175,12 @@ def draw():
                         music_call3 = False
                     image(seed_end_img,-width//2,-height//2,1500,1000)
                     
-                elif result[2] >= 3:
-                    if music_call3:
-                        bg_music("music/life_end.mp3")
-                        music_call3 = False
-                    image(life_end_img,-width//2,-height//2,1500,1000)
-                    
                 else:
                     if music_call3:
                         bg_music("music/bad_end.mp3")
                         music_call3 = False
                     image(faild_end_img,-width//2,-height//2,1500,1000)
                     
-    
 def keyPressed():
     global remain_count, game_flag
     if scene == 0:
@@ -200,7 +202,7 @@ def bg_music(file):
     back_music.stop()
     
     back_music_player = back_music.loadFile(file)
-    back_music_player.setGain(-10)
+    back_music_player.setGain(0)
     back_music_player.loop()
                     
 class Orbit_object():
@@ -297,6 +299,7 @@ class Earth():
     get_earth_lv メソッド：星のレベルを返す
     
     """
+    
     def __init__(self):
         self.arm_size = 100
         self.arm_img_open = loadImage("img/open_arm.PNG")
@@ -367,6 +370,9 @@ class Earth():
                      self.is_catch_now = False
                      self.music_player.close()
                      self.music.stop()
+                     if remain_count <= 0:
+                        global game_flag
+                        game_flag = True  
         else:
             self.arm_img = self.arm_img_open    
             
