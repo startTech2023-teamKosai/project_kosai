@@ -119,9 +119,9 @@ def draw():
             #sceneが1の時スタート画面を表示
             if mousePressed:
                 if mousePressed and (276<=mouseX<=1215) and (621<=mouseY<=879):
-                    if music_call1:
-                        bg_music("music/8-bit_Aggressive1.mp3")
-                        music_call1 = False
+                    # if music_call1:
+                    #     bg_music("music/8-bit_Aggressive1.mp3")
+                    #     music_call1 = False
                     #startの枠の中でマウスが押されたらsceneを0にする
                     scene = 2
         if scene == 2:
@@ -158,27 +158,27 @@ def draw():
                 # 結果表示
                 
                 if result[2] >= 3:
-                    if music_call3:
-                        bg_music("music/life_end.mp3")
-                        music_call3 = False
+                    # if music_call3:
+                    #     bg_music("music/life_end.mp3")
+                    #     music_call3 = False
                     image(life_end_img,-width//2,-height//2,1500,1000)
                     
                 elif result[0] >= 3:
-                    if music_call3:
-                        bg_music("music/Day_Dream_Down.mp3")
-                        music_call3 = False
+                    # if music_call3:
+                    #     bg_music("music/Day_Dream_Down.mp3")
+                    #     music_call3 = False
                     image(water_end_img,-width//2,-height//2,1500,1000)
                     
                 elif result[1] >= 3:
-                    if music_call3:
-                        bg_music("music/seed.mp3")
-                        music_call3 = False
+                    # if music_call3:
+                    #     bg_music("music/seed.mp3")
+                    #     music_call3 = False
                     image(seed_end_img,-width//2,-height//2,1500,1000)
                     
                 else:
-                    if music_call3:
-                        bg_music("music/bad_end.mp3")
-                        music_call3 = False
+                    # if music_call3:
+                    #     bg_music("music/bad_end.mp3")
+                    #     music_call3 = False
                     image(faild_end_img,-width//2,-height//2,1500,1000)
                     
 def keyPressed():
